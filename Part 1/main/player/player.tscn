@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://c4hnkibp0wavc"]
+
+[ext_resource type="Script" uid="uid://u3pwvgt3k5rs" path="res://main/player/player.gd" id="1_vuxkg"]
+[ext_resource type="Script" uid="uid://b5pxxoumsdwvu" path="res://main/player/components/player_camera_manager.gd" id="2_howr1"]
+[ext_resource type="Script" uid="uid://bf0n54b1tagwu" path="res://main/player/components/player_movement.gd" id="3_ssv3l"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_a8keb"]
+size = Vector3(0.75, 2, 0.75)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vuxkg"]
+albedo_color = Color(0.29411766, 0.5882353, 1, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_howr1"]
+radius = 0.4
+
+[node name="Player" type="CharacterBody3D" unique_id=2769499 node_paths=PackedStringArray("camera_mg", "movement")]
+script = ExtResource("1_vuxkg")
+camera_mg = NodePath("Components/Player Camera Manager")
+movement = NodePath("Components/Player Movement")
+
+[node name="Body" type="MeshInstance3D" parent="." unique_id=1779649001]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("BoxMesh_a8keb")
+surface_material_override/0 = SubResource("StandardMaterial3D_vuxkg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=494223991]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_howr1")
+
+[node name="Cam Root" type="Node3D" parent="." unique_id=1024191723]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Cam Root" unique_id=1119848646]
+
+[node name="Components" type="Node" parent="." unique_id=1615904876]
+
+[node name="Player Camera Manager" type="Node" parent="Components" unique_id=1637151469 node_paths=PackedStringArray("player", "cam_root")]
+script = ExtResource("2_howr1")
+player = NodePath("../..")
+cam_root = NodePath("../../Cam Root")
+
+[node name="Player Movement" type="Node" parent="Components" unique_id=235069934 node_paths=PackedStringArray("player")]
+script = ExtResource("3_ssv3l")
+player = NodePath("../..")

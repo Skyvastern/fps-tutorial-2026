@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://4kwfaw2m2586"]
+
+[ext_resource type="Material" uid="uid://l2w01jhxn7d0" path="res://assets/materials/ground.tres" id="1_pjrb6"]
+[ext_resource type="PackedScene" uid="uid://c4hnkibp0wavc" path="res://main/player/player.tscn" id="1_xwkvk"]
+[ext_resource type="Material" uid="uid://bltv4ak6wdajp" path="res://assets/materials/wall.tres" id="2_xwkvk"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4hihk"]
+sky_top_color = Color(0.29411766, 0.5882353, 1, 1)
+sky_horizon_color = Color(0.57882625, 0.6523557, 0.7552968, 1)
+ground_bottom_color = Color(0.039215688, 0.039215688, 0.039215688, 1)
+ground_horizon_color = Color(0.57882625, 0.6523557, 0.7552968, 1)
+
+[sub_resource type="Sky" id="Sky_53q0u"]
+sky_material = SubResource("ProceduralSkyMaterial_4hihk")
+
+[sub_resource type="Environment" id="Environment_pjrb6"]
+background_mode = 2
+sky = SubResource("Sky_53q0u")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Main" type="Node3D" unique_id=842039693]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=504393651]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=550516291]
+environment = SubResource("Environment_pjrb6")
+
+[node name="Player" parent="." unique_id=2769499 instance=ExtResource("1_xwkvk")]
+
+[node name="World" type="CSGCombiner3D" parent="." unique_id=2078700584]
+use_collision = true
+
+[node name="Ground" type="CSGBox3D" parent="World" unique_id=1632115532]
+size = Vector3(100, 1, 100)
+material = ExtResource("1_pjrb6")
+
+[node name="Wall 1" type="CSGBox3D" parent="World" unique_id=368856159]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 2.8)
+size = Vector3(9, 5, 1)
+material = ExtResource("2_xwkvk")
+
+[node name="Wall 2" type="CSGBox3D" parent="World" unique_id=1630233064]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -4.0000005, 3, -10.7)
+size = Vector3(26, 5, 1)
+material = ExtResource("2_xwkvk")
+
+[node name="Wall 3" type="CSGBox3D" parent="World" unique_id=1178114263]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 3.9999998, 3, -7.2)
+size = Vector3(19, 5, 1)
+material = ExtResource("2_xwkvk")
+
+[node name="Wall 4" type="CSGBox3D" parent="World" unique_id=1718945391]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 13, 3, -17.2)
+size = Vector3(19, 5, 1)
+material = ExtResource("2_xwkvk")
+
+[node name="Wall 5" type="CSGBox3D" parent="World" unique_id=1483265957]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 9, 3, -24.1)
+size = Vector3(27, 5, 1)
+material = ExtResource("2_xwkvk")
+
+[node name="Wall 6" type="CSGBox3D" parent="World" unique_id=1154191422]
+transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 23.000002, 3, -20.600002)
+size = Vector3(8, 5, 1)
+material = ExtResource("2_xwkvk")
