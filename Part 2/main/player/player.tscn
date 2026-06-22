@@ -1,0 +1,179 @@
+[gd_scene format=3 uid="uid://c4hnkibp0wavc"]
+
+[ext_resource type="Script" uid="uid://u3pwvgt3k5rs" path="res://main/player/player.gd" id="1_vuxkg"]
+[ext_resource type="PackedScene" uid="uid://ddiourimunq5d" path="res://main/player/player_weapon.tscn" id="2_4bbr4"]
+[ext_resource type="Script" uid="uid://b5pxxoumsdwvu" path="res://main/player/components/player_camera_manager.gd" id="2_howr1"]
+[ext_resource type="Script" uid="uid://bf0n54b1tagwu" path="res://main/player/components/player_movement.gd" id="3_ssv3l"]
+[ext_resource type="Script" uid="uid://bci5dbns2fipx" path="res://main/player/components/player_weapon_manager.gd" id="5_l6plr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_a8keb"]
+size = Vector3(0.75, 2, 0.75)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vuxkg"]
+albedo_color = Color(0.29411766, 0.5882353, 1, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_howr1"]
+radius = 0.4
+
+[node name="Player" type="CharacterBody3D" unique_id=2769499 node_paths=PackedStringArray("camera_mg", "movement", "weapon_mg")]
+script = ExtResource("1_vuxkg")
+camera_mg = NodePath("Components/Player Camera Manager")
+movement = NodePath("Components/Player Movement")
+weapon_mg = NodePath("Components/Player Weapon Manager")
+
+[node name="Body" type="MeshInstance3D" parent="." unique_id=1779649001]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("BoxMesh_a8keb")
+surface_material_override/0 = SubResource("StandardMaterial3D_vuxkg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=494223991]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_howr1")
+
+[node name="Cam Root" type="Node3D" parent="." unique_id=1024191723]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Cam Root" unique_id=1119848646]
+
+[node name="Player Weapon" parent="Cam Root" unique_id=1594152569 node_paths=PackedStringArray("weapon_mg") instance=ExtResource("2_4bbr4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.67494315, -0.46621573, -0.99734914)
+weapon_mg = NodePath("../../Components/Player Weapon Manager")
+
+[node name="Components" type="Node" parent="." unique_id=1615904876]
+
+[node name="Player Camera Manager" type="Node" parent="Components" unique_id=1637151469 node_paths=PackedStringArray("player", "cam_root", "cam")]
+script = ExtResource("2_howr1")
+player = NodePath("../..")
+cam_root = NodePath("../../Cam Root")
+cam = NodePath("../../Cam Root/Camera3D")
+
+[node name="Player Movement" type="Node" parent="Components" unique_id=235069934 node_paths=PackedStringArray("player")]
+script = ExtResource("3_ssv3l")
+player = NodePath("../..")
+
+[node name="Player Weapon Manager" type="Node" parent="Components" unique_id=1809715508 node_paths=PackedStringArray("weapon", "ammo_label", "ammo_total_label")]
+script = ExtResource("5_l6plr")
+weapon = NodePath("../../Cam Root/Player Weapon")
+ammo_label = NodePath("../../HUD/Player Stats/Stats/Ammo")
+ammo_total_label = NodePath("../../HUD/Player Stats/Stats/Ammo Total")
+
+[node name="HUD" type="Control" parent="." unique_id=1452019959]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Crosshair" type="Control" parent="HUD" unique_id=1867791108]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Vertical" type="ColorRect" parent="HUD/Crosshair" unique_id=1636682274]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3.0
+offset_top = -8.0
+offset_right = 3.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.78431374, 0.78431374, 0.78431374, 1)
+
+[node name="Horizontal" type="ColorRect" parent="HUD/Crosshair" unique_id=1246307821]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -3.0
+offset_right = 8.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.78431374, 0.78431374, 0.78431374, 1)
+
+[node name="Player Stats" type="ColorRect" parent="HUD" unique_id=281251515]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -112.0
+offset_right = 192.0
+grow_vertical = 0
+color = Color(0.039215688, 0.039215688, 0.039215688, 1)
+
+[node name="Display" type="ColorRect" parent="HUD/Player Stats" unique_id=26971620]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 16.0
+offset_top = -44.0
+offset_right = 104.0
+offset_bottom = 44.0
+grow_vertical = 2
+color = Color(0.11764706, 0.11764706, 0.11764706, 1)
+
+[node name="Pistol" type="Control" parent="HUD/Player Stats/Display" unique_id=361846490]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Upper" type="ColorRect" parent="HUD/Player Stats/Display/Pistol" unique_id=1592697735]
+layout_mode = 0
+offset_left = -26.999996
+offset_top = -18.0
+offset_right = 29.0
+offset_bottom = -2.0
+
+[node name="Lower" type="ColorRect" parent="HUD/Player Stats/Display/Pistol" unique_id=2096126435]
+layout_mode = 0
+offset_left = -27.0
+offset_top = 22.0
+offset_right = 10.124573
+offset_bottom = 38.0
+rotation = -1.2452623
+
+[node name="Stats" type="BoxContainer" parent="HUD/Player Stats" unique_id=1179116315]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 128.0
+offset_top = -25.0
+offset_right = 180.0
+offset_bottom = 25.0
+grow_vertical = 2
+vertical = true
+
+[node name="Ammo" type="Label" parent="HUD/Player Stats/Stats" unique_id=1260692831]
+layout_mode = 2
+text = "10 / 15"
+horizontal_alignment = 2
+
+[node name="Ammo Total" type="Label" parent="HUD/Player Stats/Stats" unique_id=384526570]
+layout_mode = 2
+text = "60"
+horizontal_alignment = 2

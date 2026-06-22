@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://b6bbt4km5sbl4"]
+
+[ext_resource type="Script" uid="uid://d2yuvf33hefiy" path="res://main/singletons/global.gd" id="1_ji446"]
+[ext_resource type="PackedScene" uid="uid://x7fqu8j1ad3l" path="res://main/common/warning_message.tscn" id="2_otwkd"]
+
+[node name="Global" type="Node" unique_id=347194289]
+script = ExtResource("1_ji446")
+
+[node name="UI Layer" type="CanvasLayer" parent="." unique_id=2109638443]
+
+[node name="Warning Message" parent="UI Layer" unique_id=961712070 instance=ExtResource("2_otwkd")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -102.0
+offset_top = -132.0
+offset_right = 102.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 2
